@@ -1,0 +1,364 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Thicker Hair Guide</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: hero with a "start here" plan, two goal selectors, category chips, then a grid of tinted cards, one card per item. */
+:root {
+  --font-display: "Bricolage Grotesque", "Trebuchet MS", system-ui, sans-serif;
+  --font-body: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --bg: #f2f5fb;
+  --surface: #ffffff;
+  --fg: #16203a;
+  --muted: #566180;
+  --line: #d9e1f0;
+  --focus: #2f5bea;
+
+  --food: #1f9d6b;  --food-ink: #0c6b46;  --food-tint: #e3f6ec;
+  --med: #6a55e0;   --med-ink: #4a37bd;   --med-tint: #ebe8fd;
+  --device: #e8731a; --device-ink: #a8470a; --device-tint: #ffeedc;
+  --habit: #d6336c; --habit-ink: #a31c4e; --habit-tint: #fde6ef;
+  --avoid: #c2362f; --avoid-ink: #9b2019; --avoid-tint: #fde8e6;
+
+  --thick: #2563eb; --thick-ink: #ffffff;
+  --regrow: #f2b01e; --regrow-ink: #3a2800;
+  --meter-off: #d3dbec;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e1325; --surface: #172039; --fg: #eaeffc; --muted: #a0abc9; --line: #2a3556; --focus: #8fb0ff;
+    --food: #4bdc9b; --food-ink: #7ff0bb; --food-tint: #12302a;
+    --med: #9d8fff; --med-ink: #bdb3ff; --med-tint: #241f4a;
+    --device: #ffa25e; --device-ink: #ffc196; --device-tint: #3b2616;
+    --habit: #ff7ba9; --habit-ink: #ffa6c6; --habit-tint: #3d1b2c;
+    --avoid: #ff7a72; --avoid-ink: #ffa49e; --avoid-tint: #3d1c1c;
+    --thick: #79a2ff; --thick-ink: #0b1430;
+    --regrow: #f6c453; --regrow-ink: #2b1e00;
+    --meter-off: #34406a;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e1325; --surface: #172039; --fg: #eaeffc; --muted: #a0abc9; --line: #2a3556; --focus: #8fb0ff;
+  --food: #4bdc9b; --food-ink: #7ff0bb; --food-tint: #12302a;
+  --med: #9d8fff; --med-ink: #bdb3ff; --med-tint: #241f4a;
+  --device: #ffa25e; --device-ink: #ffc196; --device-tint: #3b2616;
+  --habit: #ff7ba9; --habit-ink: #ffa6c6; --habit-tint: #3d1b2c;
+  --avoid: #ff7a72; --avoid-ink: #ffa49e; --avoid-tint: #3d1c1c;
+  --thick: #79a2ff; --thick-ink: #0b1430;
+  --regrow: #f6c453; --regrow-ink: #2b1e00;
+  --meter-off: #34406a;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--fg);
+  font-family: var(--font-body); font-size: 16px; line-height: 1.55;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 28px 56px;
+}
+.wrap { max-width: 1120px; margin: 0 auto; display: flex; flex-direction: column; gap: 36px; }
+h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; margin: 0; line-height: 1.1; }
+p { margin: 0; }
+a { color: var(--focus); }
+button { font: inherit; color: inherit; cursor: pointer; }
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+
+/* Hero */
+.hero { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 28px; align-items: start; }
+.eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--med-ink); }
+h1 { font-size: clamp(2.3rem, 6vw, 4rem); font-weight: 800; letter-spacing: -0.02em; margin-top: 10px; }
+h1 .u { background: linear-gradient(transparent 62%, var(--regrow) 62%, var(--regrow) 92%, transparent 92%); }
+.lede { margin-top: 16px; font-size: 1.1rem; color: var(--muted); max-width: 54ch; }
+.stats { margin-top: 20px; display: flex; flex-wrap: wrap; gap: 8px; }
+.stat { background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 6px 14px; font-size: 14px; font-weight: 600; }
+.stat b { font-variant-numeric: tabular-nums; }
+
+.plan { background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 22px; min-width: 0; }
+.plan h2 { font-size: 1.25rem; }
+.plan ol { list-style: none; margin: 14px 0 0; padding: 0; display: flex; flex-direction: column; gap: 14px; counter-reset: s; }
+.plan li { display: grid; grid-template-columns: 30px minmax(0, 1fr); gap: 12px; counter-increment: s; }
+.plan li::before { content: counter(s); width: 30px; height: 30px; border-radius: 50%; background: var(--med); color: #fff; font-weight: 700; display: grid; place-items: center; font-size: 14px; }
+:root[data-theme="dark"] .plan li::before { color: #0e1325; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .plan li::before { color: #0e1325; } }
+.plan li b { display: block; }
+.plan li span { color: var(--muted); font-size: 15px; }
+
+/* Goals */
+.section-title { font-size: 1.5rem; }
+.section-sub { color: var(--muted); margin-top: 4px; }
+.goals { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 14px; }
+.goal { text-align: left; background: var(--surface); border: 2px solid var(--line); border-radius: 18px; padding: 16px 18px; display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.goal strong { font-family: var(--font-display); font-size: 1.2rem; }
+.goal span { color: var(--muted); font-size: 14.5px; }
+.goal[aria-pressed="true"] { border-color: var(--fg); box-shadow: 0 0 0 3px color-mix(in srgb, var(--fg) 14%, transparent); }
+.goal[data-goal="thicker"] strong::before, .goal[data-goal="regrowth"] strong::before { content: ""; display: inline-block; width: 12px; height: 12px; border-radius: 50%; margin-right: 8px; }
+.goal[data-goal="thicker"] strong::before { background: var(--thick); }
+.goal[data-goal="regrowth"] strong::before { background: var(--regrow); }
+
+/* Category chips */
+.cats { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; align-items: center; }
+.cat-btn { border: 2px solid var(--line); background: var(--surface); border-radius: 999px; padding: 7px 16px; font-weight: 600; font-size: 14.5px; }
+.cat-btn[aria-pressed="true"] { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+.count { margin-left: auto; color: var(--muted); font-size: 14px; font-variant-numeric: tabular-nums; }
+
+/* Cards */
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); gap: 16px; margin-top: 16px; }
+.card { border: 1px solid var(--line); border-radius: 20px; padding: 20px; display: flex; flex-direction: column; gap: 12px; min-width: 0; background: var(--tint); }
+.card[data-cat="food"] { --tint: var(--food-tint); --ink: var(--food-ink); --base: var(--food); }
+.card[data-cat="med"] { --tint: var(--med-tint); --ink: var(--med-ink); --base: var(--med); }
+.card[data-cat="device"] { --tint: var(--device-tint); --ink: var(--device-ink); --base: var(--device); }
+.card[data-cat="habit"] { --tint: var(--habit-tint); --ink: var(--habit-ink); --base: var(--habit); }
+.card[data-cat="avoid"] { --tint: var(--avoid-tint); --ink: var(--avoid-ink); --base: var(--avoid); }
+.card-top { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; justify-content: space-between; }
+.chip { font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink); }
+.chip::before { content: ""; display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: var(--base); margin-right: 7px; }
+.effects { display: flex; gap: 6px; flex-wrap: wrap; }
+.pill { font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 999px; }
+.pill.thicker { background: var(--thick); color: var(--thick-ink); }
+.pill.regrowth { background: var(--regrow); color: var(--regrow-ink); }
+.pill.avoid { background: var(--avoid); color: #fff; }
+:root[data-theme="dark"] .pill.avoid { color: #1d0a09; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .pill.avoid { color: #1d0a09; } }
+.card h3 { font-size: 1.3rem; font-weight: 800; }
+.does { font-size: 15.5px; }
+.card dl { margin: 0; display: flex; flex-direction: column; gap: 10px; background: var(--surface); border-radius: 14px; padding: 12px 14px; }
+.card dt { font-size: 11.5px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); }
+.card dd { margin: 2px 0 0; font-size: 14.5px; color: var(--fg); }
+.meter { display: flex; align-items: center; gap: 10px; margin-top: auto; font-size: 13.5px; font-weight: 600; }
+.bars { display: flex; gap: 4px; }
+.bars i { width: 22px; height: 8px; border-radius: 4px; background: var(--meter-off); }
+.bars i.on { background: var(--ink); }
+.empty { padding: 30px; text-align: center; color: var(--muted); background: var(--surface); border: 1px dashed var(--line); border-radius: 16px; }
+
+/* Footer */
+.notes { background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 22px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+.notes h2 { font-size: 1.2rem; margin-bottom: 8px; }
+.notes ul { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 6px; font-size: 14.5px; }
+.notes li { overflow-wrap: anywhere; }
+.disclaimer { color: var(--muted); font-size: 14px; }
+
+@media (max-width: 820px) {
+  .hero, .notes { grid-template-columns: minmax(0, 1fr); }
+  .goals { grid-template-columns: minmax(0, 1fr); }
+  .count { margin-left: 0; width: 100%; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .card, .goal, .cat-btn { transition: transform .15s ease, box-shadow .15s ease; }
+  .card:hover { transform: translateY(-2px); }
+}
+</style>
+
+<div class="wrap">
+  <header class="hero">
+    <div>
+      <div class="eyebrow">Pattern hair loss, explained plainly</div>
+      <h1>Thicker strands, <span class="u">more hairs.</span></h1>
+      <p class="lede">Every food, medicine, device and habit is listed once, with what it does, how it is used and what to watch for. Tap a goal to see only what helps with it.</p>
+      <div class="stats" id="stats"></div>
+    </div>
+    <aside class="plan" aria-label="Where to start">
+      <h2>Where to start</h2>
+      <ol>
+        <li><div><b>Get tested</b><span>Ask for ferritin (iron stores) and vitamin D. Fix a real shortage before anything else.</span></div></li>
+        <li><div><b>Pick a proven treatment with a doctor</b><span>Minoxidil and finasteride have the strongest evidence. Add food and habits around them.</span></div></li>
+        <li><div><b>Give it six months</b><span>Hair grows slowly. Guidelines check results at around 6 months.</span></div></li>
+      </ol>
+    </aside>
+  </header>
+
+  <main>
+    <section aria-labelledby="goal-h">
+      <h2 class="section-title" id="goal-h">What do you want to change?</h2>
+      <p class="section-sub"><b>Thicker strands</b> means each hair gets wider. <b>Regrowth</b> means more hairs per square centimetre.</p>
+      <div class="goals" id="goals">
+        <button class="goal" data-goal="all" aria-pressed="true"><strong>Everything</strong><span>Show all items</span></button>
+        <button class="goal" data-goal="thicker" aria-pressed="false"><strong>Thicker strands</strong><span>Wider, stronger individual hairs</span></button>
+        <button class="goal" data-goal="regrowth" aria-pressed="false"><strong>Regrowth</strong><span>More active hairs, higher density</span></button>
+      </div>
+      <div class="cats" id="cats" role="group" aria-label="Category"></div>
+      <div class="grid" id="grid"></div>
+    </section>
+  </main>
+
+  <section class="notes" aria-labelledby="src-h">
+    <div>
+      <h2 id="src-h">Checked against</h2>
+      <ul>
+        <li><a href="https://pubmed.ncbi.nlm.nih.gov/24848508/" target="_blank" rel="noopener">Androgenetic alopecia: an evidence-based treatment update</a></li>
+        <li><a href="https://community.the-hospitalist.org/authors/jeff-donovan-md-phd" target="_blank" rel="noopener">Androgenetic Alopecia: What Works? (J. Donovan)</a></li>
+        <li><a href="https://www.lorealdermatologicalbeauty.com/inter/dercos/article/alopecia/evidence-based-guideline-for-the-treatment-of-androgenetic-alopecia" target="_blank" rel="noopener">Evidence-based guideline summary, women and men</a></li>
+        <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6380979" target="_blank" rel="noopener">The role of vitamins and minerals in hair loss</a></li>
+        <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5315033/" target="_blank" rel="noopener">Nutrient deficiency and hair loss</a></li>
+        <li><a href="https://pubmed.ncbi.nlm.nih.gov/34980962/" target="_blank" rel="noopener">Home-use low-level laser devices: meta-analysis</a></li>
+        <li><a href="https://pubmed.ncbi.nlm.nih.gov/26904154/" target="_blank" rel="noopener">Standardized scalp massage and hair thickness</a></li>
+        <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12442246" target="_blank" rel="noopener">PRP injections and microneedling trial</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Read this first</h2>
+      <p class="disclaimer">This guide is general information about pattern hair loss, not medical advice. Sudden shedding, patchy loss or a sore scalp needs a doctor. Figures from the original notes that could not be confirmed, such as exact percentages, laser schedules and a vitamin D target, were left out. Evidence bars show how well each item is supported for hair, not how healthy it is in general.</p>
+    </div>
+  </section>
+</div>
+
+<script>
+var CATS = {
+  food: "Foods", med: "Medicines", device: "Devices & procedures", habit: "Habits & exercises", avoid: "Avoid"
+};
+var CAT_LABEL = { food: "Food", med: "Medicine", device: "Device / procedure", habit: "Habit", avoid: "Avoid" };
+var EV = { 1: "Limited evidence", 2: "Moderate evidence", 3: "Strong evidence" };
+
+var ITEMS = [
+  // FOODS
+  { cat: "food", name: "Eggs (whole, with the yolk)", tags: ["thicker", "regrowth"], ev: 2,
+    does: "Protein supplies the keratin that hair is built from. The yolk also carries vitamin D, and eggs add B12 and zinc, nutrients involved in the hair growth cycle.",
+    how: "Boiled, scrambled or in curries. Keep the yolk.",
+    watch: "Too little protein weakens hair. Extra protein beyond your needs adds nothing." },
+  { cat: "food", name: "Fatty fish (salmon, mackerel)", tags: ["thicker", "regrowth"], ev: 2,
+    does: "Gives protein and vitamin D. Its omega-3 fats may calm scalp inflammation, though the hair evidence for omega-3 is limited.",
+    how: "Two portions a week as part of normal meals.",
+    watch: "Value comes mostly from protein and vitamin D. Fish oil pills are not proven to grow hair." },
+  { cat: "food", name: "Chicken, turkey and lean red meat", tags: ["thicker", "regrowth"], ev: 2,
+    does: "A complete source of protein plus iron, zinc and B12. Low iron stores are a common cause of diffuse shedding.",
+    how: "Regular portions through the week.",
+    watch: "Iron pills only make sense when a blood test shows low iron. Too much iron is toxic." },
+  { cat: "food", name: "Oysters and shellfish", tags: ["thicker", "regrowth"], ev: 2,
+    does: "Rich in zinc, with iron and B12. Zinc deficiency can cause hair loss, and fixing it can reverse that loss.",
+    how: "Occasional portions are enough.",
+    watch: "Zinc supplements above 40 mg a day can cause copper deficiency. Food sources are safe." },
+  { cat: "food", name: "Lentils, chickpeas, beans and tofu", tags: ["thicker", "regrowth"], ev: 2,
+    does: "Plant protein with iron and zinc, a good base for vegetarian diets.",
+    how: "Add a vitamin C food such as citrus or peppers to help absorb the iron.",
+    watch: "Plant iron is absorbed less well than iron from meat." },
+  { cat: "food", name: "Pumpkin seeds, walnuts, flax and chia", tags: ["thicker", "regrowth"], ev: 1,
+    does: "Pumpkin seeds give iron and zinc. Walnuts, flax and chia give plant omega-3 fats and some protein.",
+    how: "A small handful a day or sprinkled on meals.",
+    watch: "Supporting nutrition, not a treatment. Keep portions modest, they are calorie dense." },
+  { cat: "food", name: "Spinach and leafy greens", tags: ["regrowth"], ev: 1,
+    does: "A plant source of iron that helps keep iron stores up, which supports normal shedding and regrowth cycles.",
+    how: "Cook them with lemon or tomato to help iron absorption.",
+    watch: "One food will not fix low iron. Test first if you shed a lot." },
+  { cat: "food", name: "Dairy and fortified milk or yogurt", tags: ["thicker", "regrowth"], ev: 1,
+    does: "Protein, zinc and B12 together, with vitamin D when fortified.",
+    how: "Milk, yogurt or paneer a few times a week.",
+    watch: "Check the label for vitamin D. Not every dairy product is fortified." },
+  { cat: "food", name: "Liver and organ meats", tags: ["regrowth"], ev: 1,
+    does: "Very rich in iron and B12, useful when iron stores are low.",
+    how: "Keep it occasional, a small portion now and then.",
+    watch: "Liver is extremely high in vitamin A, and too much vitamin A can itself cause hair loss." },
+
+  // MEDICINES
+  { cat: "med", name: "Topical minoxidil (2% or 5%)", tags: ["thicker", "regrowth"], ev: 3,
+    does: "Widens blood supply and lengthens the growth phase. This thickens shrunken hairs and adds density. It is one of only two FDA-approved drug treatments for pattern hair loss.",
+    how: "Solution or foam on a dry scalp. Men: 5% twice daily. Women: 2% solution twice daily, or 5% foam once daily.",
+    watch: "Scalp irritation and early extra shedding can happen. Judge results at 6 months. Hairs it supports fall out again if you stop." },
+  { cat: "med", name: "Finasteride (1 mg tablet, or topical)", tags: ["thicker", "regrowth"], ev: 3,
+    does: "Blocks the enzyme that makes DHT, the hormone that shrinks follicles. It slows loss and can regrow thicker hairs. The 1 mg tablet is FDA-approved for men; topical versions are off-label.",
+    how: "1 mg daily for men over 18, by prescription. Topical forms are compounded by prescription.",
+    watch: "Some users report sexual side effects. Not suggested for postmenopausal women with pattern loss. Women who are or may become pregnant should not handle it. Some men only stop further loss." },
+  { cat: "med", name: "Minoxidil and finasteride together", tags: ["thicker", "regrowth"], ev: 2,
+    does: "Two actions in one plan. Minoxidil stimulates follicles while finasteride lowers DHT. Guidelines report better results than either alone.",
+    how: "A tablet plus solution, or a compounded topical mix. Your prescriber chooses the form.",
+    watch: "Compounded mixes are off-label. Both drugs keep their own side effects." },
+  { cat: "med", name: "Ketoconazole 2% shampoo", tags: ["thicker"], ev: 1,
+    does: "Reduces scalp yeast and oil, which lowers scalp inflammation. Any boost to hair thickness is modest and less well proven.",
+    how: "2 to 3 washes a week as an extra, leaving it on the scalp a few minutes.",
+    watch: "Approved for dandruff and seborrheic dermatitis, not for hair growth. Can dry the scalp." },
+
+  // DEVICES & PROCEDURES
+  { cat: "device", name: "Low-level laser therapy (cap, helmet or comb)", tags: ["regrowth"], ev: 2,
+    does: "Red light around 650 nm is thought to energize follicle cells. A meta-analysis of 7 sham-controlled trials found higher hair density than with dummy devices.",
+    how: "Use on the schedule in the device instructions. Only FDA-cleared devices have trial support.",
+    watch: "FDA-cleared, not FDA-approved. A guideline makes no recommendation either way for use beyond 6 months, as long-term safety data are lacking." },
+  { cat: "device", name: "Microneedling", tags: ["thicker", "regrowth"], ev: 2,
+    does: "Tiny controlled punctures in the scalp. A review of 17 studies (911 people) found better results when it was added to 5% minoxidil, growth factors or PRP, or after other treatments had plateaued.",
+    how: "Done in a clinic, or carefully at home. A clinician sets depth and frequency.",
+    watch: "Needs clean technique. Infection or scarring is possible." },
+  { cat: "device", name: "Platelet-rich plasma (PRP)", tags: ["thicker", "regrowth"], ev: 2,
+    does: "Your own blood is spun to concentrate platelets and growth factors, then placed in the scalp. A small trial of 40 people reported more hairs and thicker strands.",
+    how: "Repeated sessions with a clinician, either by injection or with microneedling.",
+    watch: "Results vary because preparation methods differ. Costly, and trials are still small." },
+
+  // HABITS & EXERCISES
+  { cat: "habit", name: "Daily scalp massage", tags: ["thicker"], ev: 1,
+    does: "In one small study, 4 minutes a day for 24 weeks raised average hair thickness from 0.085 to 0.092 mm. Stretching the cells at the base of the follicle is the likely reason.",
+    how: "Press and move the scalp in slow circles with your fingertips, 4 minutes a day. The study used a massage device.",
+    watch: "Only 9 men took part. Treat it as a free, low-risk extra, not a treatment." },
+  { cat: "habit", name: "Blood tests: ferritin, vitamin D, zinc", tags: ["thicker", "regrowth"], ev: 2,
+    does: "Low iron stores, low vitamin D and zinc deficiency are linked to shedding. Correcting a real shortage can restore growth. Supplements do little when levels are normal.",
+    how: "Ask your doctor for the tests. Dermatologists often aim for ferritin around 40 to 70 ng/mL.",
+    watch: "Take iron, zinc or vitamin D supplements only when results show you need them." },
+  { cat: "habit", name: "Sensible sunlight for vitamin D", tags: ["regrowth"], ev: 1,
+    does: "Vitamin D helps start the growth phase, and low levels are linked to more shedding. Sunlight, eggs, fatty fish and fortified dairy are the usual sources.",
+    how: "Short, regular time outdoors, with sun protection as usual. Supplement only if a test says low.",
+    watch: "Evidence that vitamin D prevents everyday thinning is mixed. It matters most when you are low." },
+
+  // AVOID
+  { cat: "avoid", name: "Biotin and generic 'hair vitamins'", tags: [], ev: 1,
+    does: "Biotin deficiency causes hair loss, but studies show no hair growth benefit from biotin in people who are not deficient.",
+    how: "Skip it unless a doctor finds a deficiency.",
+    watch: "Most hair gummies are marketing. Spend the money on proven treatments." },
+  { cat: "avoid", name: "Megadoses of vitamin A, vitamin E, selenium, zinc or iron", tags: [], ev: 1,
+    does: "Too much vitamin A, vitamin E or selenium has been linked to hair loss. Too much zinc causes copper deficiency, and too much iron is toxic.",
+    how: "Get these from food. Supplement only for a confirmed deficiency, at the dose your doctor sets.",
+    watch: "More is not better. Over-supplementing can make shedding worse." }
+];
+
+var state = { goal: "all", cat: "all" };
+var grid = document.getElementById("grid");
+
+function esc(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;"); }
+
+function card(it) {
+  var pills = it.tags.map(function (t) {
+    return '<span class="pill ' + t + '">' + (t === "thicker" ? "Thicker strands" : "Regrowth") + "</span>";
+  }).join("");
+  if (it.cat === "avoid") pills = '<span class="pill avoid">Skip this</span>';
+  var bars = "";
+  for (var i = 1; i <= 3; i++) bars += '<i class="' + (i <= it.ev ? "on" : "") + '"></i>';
+  return '<article class="card" data-cat="' + it.cat + '">' +
+    '<div class="card-top"><span class="chip">' + CAT_LABEL[it.cat] + '</span><div class="effects">' + pills + "</div></div>" +
+    "<h3>" + esc(it.name) + "</h3>" +
+    '<p class="does">' + esc(it.does) + "</p>" +
+    "<dl><div><dt>How to use</dt><dd>" + esc(it.how) + "</dd></div><div><dt>Watch out</dt><dd>" + esc(it.watch) + "</dd></div></dl>" +
+    '<div class="meter"><div class="bars" aria-hidden="true">' + bars + "</div><span>" + EV[it.ev] + "</span></div>" +
+    "</article>";
+}
+
+function render() {
+  var list = ITEMS.filter(function (it) {
+    var goalOk = state.goal === "all" || it.tags.indexOf(state.goal) > -1;
+    var catOk = state.cat === "all" || it.cat === state.cat;
+    return goalOk && catOk;
+  });
+  grid.innerHTML = list.length ? list.map(card).join("") : '<div class="empty">Nothing matches this mix. Try Everything or another category.</div>';
+  document.getElementById("count").textContent = list.length + " of " + ITEMS.length + " items";
+  Array.prototype.forEach.call(document.querySelectorAll(".goal"), function (b) { b.setAttribute("aria-pressed", String(b.dataset.goal === state.goal)); });
+  Array.prototype.forEach.call(document.querySelectorAll(".cat-btn"), function (b) { b.setAttribute("aria-pressed", String(b.dataset.cat === state.cat)); });
+}
+
+(function init() {
+  var counts = {};
+  ITEMS.forEach(function (it) { counts[it.cat] = (counts[it.cat] || 0) + 1; });
+  document.getElementById("stats").innerHTML = ["food", "med", "device", "habit"].map(function (c) {
+    return '<span class="stat"><b>' + counts[c] + "</b> " + CATS[c].toLowerCase() + "</span>";
+  }).join("");
+  var cats = '<button class="cat-btn" data-cat="all" aria-pressed="true">All categories</button>';
+  Object.keys(CATS).forEach(function (c) { cats += '<button class="cat-btn" data-cat="' + c + '" aria-pressed="false">' + CATS[c] + "</button>"; });
+  cats += '<span class="count" id="count" aria-live="polite"></span>';
+  document.getElementById("cats").innerHTML = cats;
+  document.getElementById("goals").addEventListener("click", function (e) {
+    var b = e.target.closest(".goal"); if (!b) return; state.goal = b.dataset.goal; render();
+  });
+  document.getElementById("cats").addEventListener("click", function (e) {
+    var b = e.target.closest(".cat-btn"); if (!b) return; state.cat = b.dataset.cat; render();
+  });
+  render();
+})();
+</script>
+
+</body></html>

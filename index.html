@@ -1,444 +1,683 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
-<title>Gym Week Plan</title>
-<meta name="claude:viewport-fit-sides" content="cover">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Barlow:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
-<style>
-  /* Layout: single phone-width column. Day tabs on top, a clock-style timeline below, rest timer pinned to the bottom. */
-  :root {
-    --bg: #EEF1EF;
-    --surface: #FFFFFF;
-    --fg: #14201C;
-    --muted: #55645E;
-    --line: #D5DCD8;
-    --accent: #0A6B63;
-    --accent-fg: #FFFFFF;
-    --done-bg: #D9EFE8;
-    --rest: #8A4A06;
-    --rest-bg: #FBEBD3;
-    --font-display: "Barlow Condensed", "Arial Narrow", "Helvetica Neue", sans-serif;
-    --font-body: "Barlow", system-ui, -apple-system, "Segoe UI", sans-serif;
-    --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
-      --bg: #0E1513;
-      --surface: #16201D;
-      --fg: #E7EEEA;
-      --muted: #94A59E;
-      --line: #26332F;
-      --accent: #4FD1BE;
-      --accent-fg: #07201C;
-      --done-bg: #123A34;
-      --rest: #F2B766;
-      --rest-bg: #2E2414;
-      color-scheme: dark;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>My Health Hub — Gym & Hair Dashboard</title>
+  <meta name="description" content="Your personal health dashboard. Navigate to your gym week plan and thicker hair guide from one beautiful home screen.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap">
+  <style>
+    /* ─── Design Tokens ─────────────────────────────────────────────────── */
+    :root {
+      --bg:          #09090f;
+      --bg2:         #0f0f1a;
+      --surface:     rgba(255,255,255,0.04);
+      --surface-hov: rgba(255,255,255,0.08);
+      --border:      rgba(255,255,255,0.08);
+      --border-hov:  rgba(255,255,255,0.18);
+      --fg:          #f0f0ff;
+      --muted:       rgba(240,240,255,0.45);
+      --font:        'Outfit', system-ui, sans-serif;
+      --mono:        'JetBrains Mono', monospace;
+
+      /* Gym card */
+      --gym-a:  #ff6b35;
+      --gym-b:  #ff3860;
+      --gym-glow: rgba(255, 87, 51, 0.35);
+
+      /* Hair card */
+      --hair-a: #a855f7;
+      --hair-b: #3b82f6;
+      --hair-glow: rgba(139, 92, 246, 0.35);
     }
-  }
-  :root[data-theme="dark"] {
-    --bg: #0E1513;
-    --surface: #16201D;
-    --fg: #E7EEEA;
-    --muted: #94A59E;
-    --line: #26332F;
-    --accent: #4FD1BE;
-    --accent-fg: #07201C;
-    --done-bg: #123A34;
-    --rest: #F2B766;
-    --rest-bg: #2E2414;
-    color-scheme: dark;
-  }
 
-  * { box-sizing: border-box; }
-  body {
-    background: var(--bg);
-    color: var(--fg);
-    font-family: var(--font-body);
-    font-size: 16px;
-    line-height: 1.45;
-    padding-block: 20px 120px;
-    padding-left: max(16px, env(safe-area-inset-left, 0px));
-    padding-right: max(16px, env(safe-area-inset-right, 0px));
-  }
-  main { max-width: 560px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; }
-  button { font: inherit; color: inherit; cursor: pointer; }
-  button:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  header h1 {
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: 2.1rem;
-    line-height: 1;
-    letter-spacing: 0.01em;
-    text-transform: uppercase;
-    margin: 0 0 6px;
-    text-wrap: balance;
-  }
-  header p { margin: 0; color: var(--muted); font-size: 0.95rem; }
+    html {
+      background: var(--bg);
+      min-height: 100%;
+    }
 
-  .tabs { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px; }
-  .tab {
-    background: var(--surface);
-    border: 1px solid var(--line);
-    border-radius: 10px;
-    padding: 8px 0 7px;
-    display: flex; flex-direction: column; align-items: center; gap: 1px;
-    min-height: 52px;
-  }
-  .tab .d { font-family: var(--font-display); font-weight: 700; font-size: 1.15rem; line-height: 1.1; text-transform: uppercase; }
-  .tab .k { font-size: 0.66rem; color: var(--muted); letter-spacing: 0.04em; text-transform: uppercase; }
-  .tab[aria-selected="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-fg); }
-  .tab[aria-selected="true"] .k { color: var(--accent-fg); opacity: 0.85; }
-  .tab.today .d::after { content: ""; display: block; width: 5px; height: 5px; border-radius: 50%; background: currentColor; margin: 2px auto 0; }
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--fg);
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
 
-  .panel { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px; }
-  .panel-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 12px; flex-wrap: wrap; padding-bottom: 12px; }
-  .panel-head h2 {
-    font-family: var(--font-display); font-weight: 700; font-size: 1.7rem; line-height: 1;
-    text-transform: uppercase; margin: 0; text-wrap: balance;
-  }
-  .panel-head .sub { color: var(--muted); font-size: 0.9rem; margin-top: 4px; }
-  .progress { font-family: var(--font-mono); font-size: 0.85rem; color: var(--muted); white-space: nowrap; }
-  .bar { height: 6px; background: var(--line); border-radius: 3px; overflow: hidden; }
-  .bar > i { display: block; height: 100%; width: 0; background: var(--accent); transition: width 0.25s ease; }
+    /* ─── Background orbs ───────────────────────────────────────────────── */
+    .orb-wrap {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(120px);
+      opacity: 0.18;
+    }
+    .orb-1 {
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, #ff6b35, transparent 70%);
+      top: -200px; left: -200px;
+      animation: float1 18s ease-in-out infinite;
+    }
+    .orb-2 {
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, #7c3aed, transparent 70%);
+      bottom: -150px; right: -150px;
+      animation: float2 22s ease-in-out infinite;
+    }
+    .orb-3 {
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, #3b82f6, transparent 70%);
+      top: 40%; left: 40%;
+      transform: translate(-50%, -50%);
+      animation: float3 16s ease-in-out infinite;
+    }
+    @keyframes float1 {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33%       { transform: translate(60px, 40px) scale(1.05); }
+      66%       { transform: translate(-30px, 80px) scale(0.95); }
+    }
+    @keyframes float2 {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      50%       { transform: translate(-50px, -60px) scale(1.1); }
+    }
+    @keyframes float3 {
+      0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.18; }
+      50%       { transform: translate(-50%, -50%) scale(1.3); opacity: 0.10; }
+    }
 
-  .note { margin: 14px 0 0; padding: 10px 12px; background: var(--bg); border-radius: 8px; font-size: 0.92rem; color: var(--muted); }
+    /* ─── Grid overlay ──────────────────────────────────────────────────── */
+    .grid-overlay {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
 
-  .blk { display: grid; grid-template-columns: 4.4rem minmax(0, 1fr); gap: 12px; padding: 14px 0; border-top: 1px solid var(--line); }
-  .blk:first-of-type { margin-top: 14px; }
-  .clk { font-family: var(--font-mono); font-weight: 500; }
-  .clk .s { font-size: 1.05rem; display: block; }
-  .clk .e { font-size: 0.72rem; color: var(--muted); display: block; margin-top: 2px; }
-  .blk h3 { font-family: var(--font-display); font-weight: 600; font-size: 1.25rem; line-height: 1.15; margin: 0; letter-spacing: 0.01em; }
-  .meta { color: var(--muted); font-size: 0.92rem; margin-top: 2px; }
-  .grp { margin-top: 10px; }
-  .grp-label { font-size: 0.8rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px; }
-  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
-  .chip {
-    min-width: 48px; min-height: 44px; padding: 0 14px;
-    background: var(--bg); border: 1px solid var(--line); border-radius: 10px;
-    font-weight: 600; font-size: 0.92rem;
-  }
-  .chip[aria-pressed="true"] { background: var(--done-bg); border-color: var(--accent); color: var(--accent); }
-  .chip[aria-pressed="true"]::before { content: "\2713\00a0"; }
-  .rest {
-    margin-top: 10px; min-height: 40px; padding: 0 14px;
-    background: var(--rest-bg); color: var(--rest); border: 0; border-radius: 10px;
-    font-weight: 600; font-size: 0.9rem;
-  }
-  .blk.done .clk .s { color: var(--accent); }
-  .blk.done h3 { opacity: 0.55; text-decoration: line-through; text-decoration-thickness: 1px; }
+    /* ─── Layout ────────────────────────────────────────────────────────── */
+    .page {
+      position: relative;
+      z-index: 1;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 48px 24px 64px;
+      gap: 56px;
+    }
 
-  .panel-foot { display: flex; justify-content: flex-end; padding-top: 12px; border-top: 1px solid var(--line); }
-  .reset { background: none; border: 1px solid var(--line); border-radius: 8px; padding: 8px 14px; color: var(--muted); font-size: 0.88rem; min-height: 40px; }
-  .rest-day { padding: 8px 0 4px; color: var(--muted); }
+    /* ─── Header ────────────────────────────────────────────────────────── */
+    header {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
 
-  section.ref h2 { font-family: var(--font-display); font-weight: 700; font-size: 1.4rem; text-transform: uppercase; margin: 0 0 10px; }
-  .tablewrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
-  table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
-  th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
-  tr:last-child td { border-bottom: 0; }
-  th { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); font-weight: 600; }
-  td.n { font-family: var(--font-mono); white-space: nowrap; }
-  ul.tips { margin: 14px 0 0; padding-left: 1.1rem; color: var(--muted); font-size: 0.95rem; display: flex; flex-direction: column; gap: 6px; }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 6px 14px;
+    }
+    .badge-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #4ade80;
+      box-shadow: 0 0 8px #4ade80;
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.5; transform: scale(0.8); }
+    }
 
-  .timer {
-    position: fixed; left: 0; right: 0; bottom: 0; z-index: 20;
-    background: var(--fg); color: var(--bg);
-    padding-top: 12px;
-    padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px));
-    padding-left: max(16px, env(safe-area-inset-left, 0px));
-    padding-right: max(16px, env(safe-area-inset-right, 0px));
-  }
-  .timer-in { max-width: 560px; margin: 0 auto; display: flex; align-items: center; gap: 10px; }
-  .timer .lbl { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; opacity: 0.75; }
-  .timer .t { font-family: var(--font-mono); font-size: 1.9rem; line-height: 1.1; }
-  .timer .grow { flex: 1; min-width: 0; }
-  .timer button { background: transparent; color: inherit; border: 1px solid currentColor; border-radius: 10px; min-height: 44px; padding: 0 14px; font-weight: 600; }
+    h1 {
+      font-size: clamp(2.4rem, 7vw, 4.5rem);
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      background: linear-gradient(135deg, #ffffff 0%, rgba(255,255,255,0.6) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    h1 .accent {
+      background: linear-gradient(135deg, #ff6b35, #a855f7, #3b82f6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
 
-  @media (prefers-reduced-motion: reduce) { .bar > i { transition: none; } }
-</style>
+    .tagline {
+      font-size: clamp(1rem, 2.5vw, 1.2rem);
+      color: var(--muted);
+      font-weight: 400;
+      max-width: 44ch;
+      line-height: 1.6;
+    }
 
-<main>
-  <header>
-    <h1>Gym Week</h1>
-    <p>3 strength days, 2 cardio days, 2 recovery days. Each session runs 60 minutes from the moment you walk in.</p>
-  </header>
+    /* ─── Clock ─────────────────────────────────────────────────────────── */
+    .clock-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 8px 18px;
+    }
+    .clock-icon { font-size: 14px; }
+    #clock {
+      font-family: var(--mono);
+      font-size: 14px;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+    }
 
-  <div class="tabs" id="tabs" role="tablist" aria-label="Day of the week"></div>
+    /* ─── Cards grid ────────────────────────────────────────────────────── */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr));
+      gap: 24px;
+      width: 100%;
+      max-width: 860px;
+    }
 
-  <div class="panel" id="panel" role="tabpanel"></div>
+    /* ─── Card ──────────────────────────────────────────────────────────── */
+    .card {
+      position: relative;
+      border-radius: 28px;
+      padding: 2px;
+      text-decoration: none;
+      display: block;
+      transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.35s ease;
+      outline: none;
+    }
+    .card:focus-visible { outline: 3px solid rgba(255,255,255,0.5); outline-offset: 4px; }
 
-  <section class="ref">
-    <h2>Rest between sets</h2>
-    <div class="tablewrap">
-      <table>
-        <thead><tr><th>Exercise type</th><th>Rest</th></tr></thead>
-        <tbody>
-          <tr><td>Leg press, squats, Romanian deadlifts</td><td class="n">90–150 s</td></tr>
-          <tr><td>Chest press, rows, lat pulldown</td><td class="n">90–120 s</td></tr>
-          <tr><td>Shoulder press</td><td class="n">90–120 s</td></tr>
-          <tr><td>Curls, triceps, lateral raises</td><td class="n">60–90 s</td></tr>
-          <tr><td>Planks and core</td><td class="n">45–60 s</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <ul class="tips">
-      <li>These are rests between sets of the same exercise. Moving to a new machine takes about 1–2 minutes extra for setup.</li>
-      <li>Pick a weight that leaves 2–3 reps in reserve. Good form comes before heavier weight.</li>
-      <li>If a machine is busy or you need more rest, finish the strength work first and trim the cardio.</li>
-      <li>Stick with this for 6–8 weeks before changing anything big.</li>
-    </ul>
-  </section>
-</main>
+    /* Card gradient border */
+    .card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 28px;
+      padding: 2px;
+      background: var(--card-border-grad);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      opacity: 0.6;
+      transition: opacity 0.35s ease;
+    }
+    .card:hover::before { opacity: 1; }
 
-<div class="timer" id="timer" hidden>
-  <div class="timer-in">
-    <div class="grow">
-      <div class="lbl" id="timerLbl">Rest</div>
-      <div class="t" id="timerT" aria-live="off">00:00</div>
-    </div>
-    <button type="button" id="timerPlus">+15 s</button>
-    <button type="button" id="timerStop">Stop</button>
+    /* Card glow */
+    .card::after {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: 30px;
+      background: var(--card-glow-col);
+      filter: blur(40px);
+      z-index: -1;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+    .card:hover::after { opacity: 1; }
+    .card:hover { transform: translateY(-8px) scale(1.01); }
+
+    .card-inner {
+      position: relative;
+      background: var(--bg2);
+      border-radius: 26px;
+      padding: 36px 32px 32px;
+      overflow: hidden;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* Card tinted bg gradient */
+    .card-inner::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--card-tint);
+      opacity: 0.07;
+      transition: opacity 0.35s ease;
+    }
+    .card:hover .card-inner::before { opacity: 0.13; }
+
+    /* Floating large emoji/icon decoration */
+    .card-deco {
+      position: absolute;
+      top: -20px; right: -10px;
+      font-size: 140px;
+      line-height: 1;
+      opacity: 0.07;
+      pointer-events: none;
+      filter: grayscale(0.3);
+      transition: transform 0.5s cubic-bezier(0.34,1.56,0.64,1), opacity 0.35s ease;
+      user-select: none;
+    }
+    .card:hover .card-deco {
+      transform: rotate(10deg) scale(1.1) translate(4px, -8px);
+      opacity: 0.12;
+    }
+
+    .card-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--card-ink);
+    }
+    .card-eyebrow-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--card-ink);
+      box-shadow: 0 0 10px var(--card-ink);
+    }
+
+    .card-title {
+      font-size: clamp(1.9rem, 4.5vw, 2.5rem);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.025em;
+      color: #fff;
+    }
+    .card-title span {
+      display: block;
+      background: var(--card-grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .card-desc {
+      font-size: 0.97rem;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.65;
+      font-weight: 400;
+    }
+
+    .card-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: auto;
+    }
+    .pill {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      padding: 5px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: rgba(255,255,255,0.7);
+    }
+
+    .card-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--card-ink);
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 12px;
+      padding: 12px 20px;
+      margin-top: 4px;
+      transition: background 0.2s ease, gap 0.25s ease;
+    }
+    .card:hover .card-cta {
+      background: rgba(255,255,255,0.12);
+      gap: 14px;
+    }
+    .card-cta svg {
+      transition: transform 0.25s ease;
+    }
+    .card:hover .card-cta svg { transform: translateX(4px); }
+
+    /* ─── Gym card specifics ─────────────────────────────────────────────── */
+    .card-gym {
+      --card-border-grad: linear-gradient(135deg, var(--gym-a), var(--gym-b));
+      --card-glow-col:    var(--gym-glow);
+      --card-tint:        linear-gradient(135deg, var(--gym-a), var(--gym-b));
+      --card-ink:         #ff8a60;
+      --card-grad:        linear-gradient(135deg, var(--gym-a), var(--gym-b));
+    }
+
+    /* ─── Hair card specifics ─────────────────────────────────────────────── */
+    .card-hair {
+      --card-border-grad: linear-gradient(135deg, var(--hair-a), var(--hair-b));
+      --card-glow-col:    var(--hair-glow);
+      --card-tint:        linear-gradient(135deg, var(--hair-a), var(--hair-b));
+      --card-ink:         #c084fc;
+      --card-grad:        linear-gradient(135deg, var(--hair-a), var(--hair-b));
+    }
+
+    /* ─── Divider ────────────────────────────────────────────────────────── */
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      width: 100%;
+      max-width: 860px;
+    }
+    .divider::before, .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+    .divider-text {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* ─── Stats bar ──────────────────────────────────────────────────────── */
+    .stats {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      width: 100%;
+      max-width: 860px;
+    }
+    .stat {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px 20px;
+      flex: 1;
+      min-width: 160px;
+      transition: border-color 0.2s ease, background 0.2s ease;
+    }
+    .stat:hover {
+      border-color: var(--border-hov);
+      background: var(--surface-hov);
+    }
+    .stat-icon { font-size: 24px; }
+    .stat-text {}
+    .stat-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      display: block;
+    }
+    .stat-value {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--fg);
+      display: block;
+    }
+
+    /* ─── Footer ─────────────────────────────────────────────────────────── */
+    footer {
+      text-align: center;
+      font-size: 12px;
+      color: var(--muted);
+      padding-bottom: 8px;
+    }
+    footer a { color: inherit; text-decoration: underline; opacity: 0.7; }
+
+    /* ─── Responsive ─────────────────────────────────────────────────────── */
+    @media (max-width: 480px) {
+      .page { padding: 36px 16px 48px; gap: 40px; }
+      .card-inner { padding: 28px 22px 24px; }
+      .stats { gap: 8px; }
+      .stat { padding: 12px 14px; min-width: 130px; }
+    }
+
+    /* ─── Reduced motion ─────────────────────────────────────────────────── */
+    @media (prefers-reduced-motion: reduce) {
+      .orb, .badge-dot { animation: none; }
+      .card, .card-cta, .card-deco, .card-cta svg,
+      .card::before, .card::after, .card-inner::before { transition: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background decoration -->
+  <div class="orb-wrap" aria-hidden="true">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
   </div>
-</div>
+  <div class="grid-overlay" aria-hidden="true"></div>
 
-<script>
-(function () {
-  var W = { t: 'warm' };
-  function lift(a, b, name, sets, reps, rest, restLabel) {
-    return { t: [a, b], name: name, meta: sets + ' sets × ' + reps + ' reps', rest: rest, restLabel: restLabel,
-             groups: [{ label: '', sets: sets }] };
-  }
-  function single(a, b, name, meta) {
-    return { t: [a, b], name: name, meta: meta, groups: [{ label: '', sets: 1 }] };
-  }
+  <div class="page">
 
-  var fullA = [
-    single(0, 5, 'Warm-up', 'Treadmill walking, easy pace'),
-    lift(5, 12, 'Leg press', 3, '10–12', 90, '90 s'),
-    lift(12, 19, 'Machine chest press', 3, '8–12', 90, '90 s'),
-    lift(19, 26, 'Lat pulldown', 3, '10–12', 90, '90 s'),
-    lift(26, 32, 'Dumbbell Romanian deadlift', 2, '10', 120, '120 s'),
-    lift(32, 37, 'Lateral raises', 2, '12–15', 60, '60 s'),
-    single(37, 52, 'Treadmill cardio', '15 min at moderate intensity'),
-    single(52, 60, 'Cool down', 'Easy walking and gentle mobility')
-  ];
-  var fullB = [
-    single(0, 5, 'Warm-up', 'Easy treadmill walking'),
-    lift(5, 12, 'Goblet squat', 3, '10', 90, '90 s'),
-    lift(12, 19, 'Incline chest press', 3, '10', 90, '90 s'),
-    lift(19, 26, 'Seated cable row', 3, '10–12', 90, '90 s'),
-    lift(26, 33, 'Seated leg curl', 3, '12', 90, '75–90 s'),
-    lift(33, 38, 'Dumbbell shoulder press', 2, '10', 90, '90 s'),
-    single(38, 53, 'Treadmill cardio', '15 min at moderate intensity'),
-    single(53, 60, 'Cool down', 'Easy walking and gentle stretching')
-  ];
-  var cardio = [
-    single(0, 5, 'Easy warm-up', 'Slow walk on the treadmill'),
-    single(5, 35, 'Brisk treadmill walk', '30 min'),
-    single(35, 45, 'Stationary bike', '10 min, comfortable pace'),
-    { t: [45, 53], name: 'Core', meta: 'Rest 45–60 s between sets', rest: 60, restLabel: '60 s',
-      groups: [{ label: 'Plank', sets: 3 }, { label: 'Dead bugs', sets: 2 }] },
-    single(53, 60, 'Slow walk and stretch', 'Gentle stretching to finish')
-  ];
+    <!-- ── Header ─────────────────────────────────────────────── -->
+    <header>
+      <div class="badge">
+        <span class="badge-dot" aria-hidden="true"></span>
+        Personal Health Hub
+      </div>
 
-  var DAYS = [
-    { id: 'mon', short: 'Mon', kind: 'Lift', name: 'Monday', title: 'Full Body A', sub: '60 min strength', blocks: fullA,
-      note: 'Use a weight that lets you finish each set with 2–3 reps left in reserve.' },
-    { id: 'tue', short: 'Tue', kind: 'Cardio', name: 'Tuesday', title: 'Cardio', sub: '60 min cardio and core', blocks: cardio,
-      note: 'Short on time? Do either the treadmill or the bike, not both.' },
-    { id: 'wed', short: 'Wed', kind: 'Lift', name: 'Wednesday', title: 'Full Body B', sub: '60 min strength', blocks: fullB,
-      note: 'Use a weight that lets you finish each set with 2–3 reps left in reserve.' },
-    { id: 'thu', short: 'Thu', kind: 'Cardio', name: 'Thursday', title: 'Cardio', sub: '60 min cardio and core', blocks: cardio,
-      note: 'Short on time? Do either the treadmill or the bike, not both.' },
-    { id: 'fri', short: 'Fri', kind: 'Lift', name: 'Friday', title: 'Full Body A', sub: '60 min strength, same as Monday', blocks: fullA,
-      note: 'Repeat Monday. If you are still sore or tired, cut the weight or a set instead of forcing the same numbers.' },
-    { id: 'sat', short: 'Sat', kind: 'Walk', name: 'Saturday', title: 'Active recovery', sub: '40–50 min, easy', blocks: [
-      { name: 'Comfortable walk', meta: '30–40 min', groups: [{ label: '', sets: 1 }] },
-      { name: 'Gentle stretching', meta: '10 min', groups: [{ label: '', sets: 1 }] }
-    ], note: 'Use any extra time for easy mobility work or just rest.' },
-    { id: 'sun', short: 'Sun', kind: 'Rest', name: 'Sunday', title: 'Full rest', sub: 'No workout', blocks: [],
-      restText: 'No structured workout today. Recovery is part of building muscle and keeping the routine going.' }
-  ];
+      <h1>My <span class="accent">Wellness</span><br>Dashboard</h1>
 
-  var STORE = 'gym-week-plan-v1';
-  var state = {};
-  try { state = JSON.parse(localStorage.getItem(STORE) || '{}') || {}; } catch (e) { state = {}; }
-  function save() { try { localStorage.setItem(STORE, JSON.stringify(state)); } catch (e) {} }
+      <p class="tagline">Everything you need to stay on track — your weekly gym plan and hair care guide, always one tap away.</p>
 
-  var todayIdx = (new Date().getDay() + 6) % 7; // Monday = 0
-  var cur = todayIdx;
+      <div class="clock-wrap" aria-label="Current time">
+        <span class="clock-icon" aria-hidden="true">🕐</span>
+        <time id="clock" aria-live="polite">—</time>
+      </div>
+    </header>
 
-  var tabsEl = document.getElementById('tabs');
-  var panelEl = document.getElementById('panel');
+    <!-- ── Navigation Cards ────────────────────────────────────── -->
+    <nav aria-label="Health sections">
+      <div class="cards">
 
-  function pad(n) { return (n < 10 ? '0' : '') + n; }
-  function clock(m) { return pad(m) + ':00'; }
-  function el(tag, cls, text) {
-    var e = document.createElement(tag);
-    if (cls) e.className = cls;
-    if (text != null) e.textContent = text;
-    return e;
-  }
+        <!-- Gym Card -->
+        <a href="gym.html" id="gym-card" class="card card-gym" aria-label="Open Gym Week Plan">
+          <div class="card-inner">
+            <span class="card-deco" aria-hidden="true">🏋️</span>
 
-  function renderTabs() {
-    tabsEl.innerHTML = '';
-    DAYS.forEach(function (d, i) {
-      var b = el('button', 'tab' + (i === todayIdx ? ' today' : ''));
-      b.type = 'button';
-      b.setAttribute('role', 'tab');
-      b.setAttribute('aria-selected', i === cur ? 'true' : 'false');
-      b.setAttribute('aria-label', d.name + ', ' + d.title);
-      b.appendChild(el('span', 'd', d.short));
-      b.appendChild(el('span', 'k', d.kind));
-      b.addEventListener('click', function () { cur = i; renderTabs(); renderPanel(); });
-      tabsEl.appendChild(b);
-    });
-  }
+            <div class="card-eyebrow">
+              <span class="card-eyebrow-dot" aria-hidden="true"></span>
+              Fitness
+            </div>
 
-  function chipKey(d, bi, gi, si) { return d.id + ':' + bi + ':' + gi + ':' + si; }
-  function blockDone(d, bi) {
-    var b = d.blocks[bi];
-    for (var g = 0; g < b.groups.length; g++)
-      for (var s = 0; s < b.groups[g].sets; s++)
-        if (!state[chipKey(d, bi, g, s)]) return false;
-    return true;
-  }
+            <div>
+              <div class="card-title">
+                Gym Week<br>
+                <span>Plan</span>
+              </div>
+            </div>
 
-  function renderPanel() {
-    var d = DAYS[cur];
-    panelEl.innerHTML = '';
+            <p class="card-desc">
+              Your 7-day strength and cardio schedule. 3 lift days, 2 cardio days, 1 active recovery, 1 full rest — with a built-in rest timer.
+            </p>
 
-    var head = el('div', 'panel-head');
-    var left = el('div');
-    left.appendChild(el('h2', null, d.name + ' · ' + d.title));
-    left.appendChild(el('div', 'sub', d.sub));
-    head.appendChild(left);
-    var prog = el('div', 'progress');
-    head.appendChild(prog);
-    panelEl.appendChild(head);
+            <div class="card-pills">
+              <span class="pill">💪 3 Strength Days</span>
+              <span class="pill">🏃 2 Cardio Days</span>
+              <span class="pill">⏱ Rest Timer</span>
+            </div>
 
-    var bar = el('div', 'bar'); var fill = el('i'); bar.appendChild(fill);
+            <div class="card-cta">
+              Open Gym Plan
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+          </div>
+        </a>
 
-    if (!d.blocks.length) {
-      panelEl.appendChild(el('p', 'rest-day', d.restText));
-      return;
+        <!-- Hair Card -->
+        <a href="Thicker%20Hair%20Guide.html" id="hair-card" class="card card-hair" aria-label="Open Thicker Hair Guide">
+          <div class="card-inner">
+            <span class="card-deco" aria-hidden="true">✨</span>
+
+            <div class="card-eyebrow">
+              <span class="card-eyebrow-dot" aria-hidden="true"></span>
+              Hair Care
+            </div>
+
+            <div>
+              <div class="card-title">
+                Thicker Hair<br>
+                <span>Guide</span>
+              </div>
+            </div>
+
+            <p class="card-desc">
+              Science-backed foods, medicines, devices and habits for pattern hair loss — filtered by your goal: thicker strands or regrowth.
+            </p>
+
+            <div class="card-pills">
+              <span class="pill">🥗 Foods</span>
+              <span class="pill">💊 Medicines</span>
+              <span class="pill">💡 Devices</span>
+              <span class="pill">🔬 Evidence-based</span>
+            </div>
+
+            <div class="card-cta">
+              Open Hair Guide
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+          </div>
+        </a>
+
+      </div>
+    </nav>
+
+    <!-- ── Divider ──────────────────────────────────────────────── -->
+    <div class="divider" aria-hidden="true">
+      <span class="divider-text">Quick stats</span>
+    </div>
+
+    <!-- ── Stats ───────────────────────────────────────────────── -->
+    <div class="stats" role="list" aria-label="At a glance">
+      <div class="stat" role="listitem">
+        <span class="stat-icon" aria-hidden="true">📅</span>
+        <div class="stat-text">
+          <span class="stat-label">Workout Days</span>
+          <span class="stat-value" id="today-stat">Loading…</span>
+        </div>
+      </div>
+      <div class="stat" role="listitem">
+        <span class="stat-icon" aria-hidden="true">🔥</span>
+        <div class="stat-text">
+          <span class="stat-label">Weekly Goal</span>
+          <span class="stat-value">5 Sessions</span>
+        </div>
+      </div>
+      <div class="stat" role="listitem">
+        <span class="stat-icon" aria-hidden="true">💆</span>
+        <div class="stat-text">
+          <span class="stat-label">Hair Routine</span>
+          <span class="stat-value">Daily Massage</span>
+        </div>
+      </div>
+      <div class="stat" role="listitem">
+        <span class="stat-icon" aria-hidden="true">🎯</span>
+        <div class="stat-text">
+          <span class="stat-label">Progress Check</span>
+          <span class="stat-value">Every 6 Weeks</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Footer ──────────────────────────────────────────────── -->
+    <footer>
+      <p>Your personal health hub &mdash; hosted on Netlify &nbsp;·&nbsp; <span id="footer-date"></span></p>
+    </footer>
+
+  </div>
+
+  <script>
+    /* ── Live clock ──────────────────────────────────────────── */
+    function updateClock() {
+      var now = new Date();
+      var h = now.getHours();
+      var m = now.getMinutes();
+      var ampm = h >= 12 ? 'PM' : 'AM';
+      h = h % 12 || 12;
+      var pad = function(n) { return (n < 10 ? '0' : '') + n; };
+      document.getElementById('clock').textContent =
+        ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][now.getDay()] +
+        '  ·  ' + h + ':' + pad(m) + ' ' + ampm;
     }
-    panelEl.appendChild(bar);
-    if (d.note) panelEl.appendChild(el('p', 'note', d.note));
+    updateClock();
+    setInterval(updateClock, 1000);
 
-    function updateProgress() {
-      var done = 0;
-      d.blocks.forEach(function (_, bi) { if (blockDone(d, bi)) done++; });
-      prog.textContent = done + ' of ' + d.blocks.length + ' done';
-      fill.style.width = (100 * done / d.blocks.length) + '%';
+    /* ── Today's workout stat ────────────────────────────────── */
+    var DAY_LABELS = [
+      'Sunday — Rest day',
+      'Monday — Full Body A 💪',
+      'Tuesday — Cardio 🏃',
+      'Wednesday — Full Body B 💪',
+      'Thursday — Cardio 🏃',
+      'Friday — Full Body A 💪',
+      'Saturday — Active Recovery 🚶'
+    ];
+    var todayStat = document.getElementById('today-stat');
+    if (todayStat) {
+      todayStat.textContent = DAY_LABELS[new Date().getDay()];
     }
 
-    d.blocks.forEach(function (b, bi) {
-      var row = el('div', 'blk');
-      var clk = el('div', 'clk');
-      if (b.t) {
-        clk.appendChild(el('span', 's', clock(b.t[0])));
-        clk.appendChild(el('span', 'e', 'to ' + clock(b.t[1])));
-      } else {
-        clk.appendChild(el('span', 's', '–'));
-      }
-      var body = el('div');
-      body.appendChild(el('h3', null, b.name));
-      body.appendChild(el('div', 'meta', b.meta));
-
-      b.groups.forEach(function (g, gi) {
-        var grp = el('div', 'grp');
-        if (g.label) grp.appendChild(el('div', 'grp-label', g.label + ' · ' + g.sets + ' sets'));
-        var chips = el('div', 'chips');
-        for (var s = 0; s < g.sets; s++) {
-          (function (s) {
-            var key = chipKey(d, bi, gi, s);
-            var c = el('button', 'chip', g.sets === 1 ? 'Done' : 'Set ' + (s + 1));
-            c.type = 'button';
-            c.setAttribute('aria-pressed', state[key] ? 'true' : 'false');
-            c.addEventListener('click', function () {
-              if (state[key]) delete state[key]; else state[key] = 1;
-              save();
-              var on = !!state[key];
-              c.setAttribute('aria-pressed', on ? 'true' : 'false');
-              row.classList.toggle('done', blockDone(d, bi));
-              updateProgress();
-              if (on && b.rest && g.sets > 1) startRest(b.rest, b.name + ' rest');
-            });
-            chips.appendChild(c);
-          })(s);
-        }
-        grp.appendChild(chips);
-        body.appendChild(grp);
+    /* ── Footer date ─────────────────────────────────────────── */
+    var footerDate = document.getElementById('footer-date');
+    if (footerDate) {
+      footerDate.textContent = new Date().toLocaleDateString('en-US', {
+        year: 'numeric', month: 'long', day: 'numeric'
       });
-
-      if (b.rest) {
-        var rb = el('button', 'rest', 'Start ' + b.restLabel + ' rest timer');
-        rb.type = 'button';
-        rb.addEventListener('click', function () { startRest(b.rest, b.name + ' rest'); });
-        body.appendChild(rb);
-      }
-
-      row.appendChild(clk); row.appendChild(body);
-      if (blockDone(d, bi)) row.classList.add('done');
-      panelEl.appendChild(row);
-    });
-
-    var foot = el('div', 'panel-foot');
-    var rs = el('button', 'reset', 'Clear this day');
-    rs.type = 'button';
-    rs.addEventListener('click', function () {
-      Object.keys(state).forEach(function (k) { if (k.indexOf(d.id + ':') === 0) delete state[k]; });
-      save(); renderPanel();
-    });
-    foot.appendChild(rs);
-    panelEl.appendChild(foot);
-    updateProgress();
-  }
-
-  /* Rest timer */
-  var timerEl = document.getElementById('timer');
-  var timerT = document.getElementById('timerT');
-  var timerLbl = document.getElementById('timerLbl');
-  var endAt = 0, tid = null, baseLabel = 'Rest';
-
-  function fmt(s) { return pad(Math.floor(s / 60)) + ':' + pad(s % 60); }
-  function tick() {
-    var left = Math.max(0, Math.ceil((endAt - Date.now()) / 1000));
-    timerT.textContent = fmt(left);
-    if (left === 0) {
-      clearInterval(tid); tid = null;
-      timerLbl.textContent = 'Rest over. Start your next set.';
-      try { if (navigator.vibrate) navigator.vibrate([200, 100, 200]); } catch (e) {}
     }
-  }
-  function startRest(sec, label) {
-    if (tid) clearInterval(tid);
-    baseLabel = label;
-    endAt = Date.now() + sec * 1000;
-    timerLbl.textContent = label;
-    timerEl.hidden = false;
-    tick();
-    tid = setInterval(tick, 250);
-  }
-  document.getElementById('timerPlus').addEventListener('click', function () {
-    var left = Math.max(0, endAt - Date.now());
-    endAt = Date.now() + left + 15000;
-    timerLbl.textContent = baseLabel;
-    if (!tid) tid = setInterval(tick, 250);
-    tick();
-  });
-  document.getElementById('timerStop').addEventListener('click', function () {
-    if (tid) clearInterval(tid); tid = null;
-    timerEl.hidden = true;
-  });
 
-  renderTabs();
-  renderPanel();
-})();
-</script>
-
-</body></html>
+    /* ── Keyboard nav — allow Enter on card ─────────────────── */
+    document.querySelectorAll('.card').forEach(function(card) {
+      card.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          card.click();
+        }
+      });
+    });
+  </script>
+</body>
+</html>
